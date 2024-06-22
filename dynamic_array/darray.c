@@ -41,19 +41,20 @@ int main() {
     int num = 0;
     char flag = 'c';
     int counter = 0;
-    darray* b;
+    darray b;
 
-    init(b);
+    init(&b);
 
 
     while (flag != 'd') {
         counter++;
         printf("Enter a number, if done enter d\n");
 
+        
         if (scanf("%d", &num)) {
-            append(b, num);
+            append(&b, num);
 
-        } else if (flag == 'd') { 
+        } else if (scanf("%c", &flag) == 'd') { 
             flag = 'd';
 
         }
@@ -61,11 +62,13 @@ int main() {
 
 
     printf("Array:\n");
-    for(int i=0; i < b->size; i++) {
-        printf("%d,",b->data[i]);
+    for(int i=0; i < b.size; i++) {
+        printf("%d,",b.data[i]);
     }
-    destroy(b);
-    printf("freed memory address:%p", b);
+
+    printf("index 2: %d", get(&b, 2));
+    destroy(&b);
+    printf("freed memory address:%p", &b);
     
     return 0;
 }
