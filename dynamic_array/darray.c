@@ -46,7 +46,6 @@ int main() {
 
     while (flag != 'd') {
         printf("Enter a number, if done enter d\n");
-
         
         if (scanf("%d", &num)) {
             append(b, num);
@@ -58,13 +57,13 @@ int main() {
     }
 
 
-    printf("Array:\n");
-    for(int i=0; i < b->size; i++) {
-        printf("%d,",get(b,i));
-    }
+    /* printf("Array:\n"); */
+    /* for(int i=0; i < b->size; i++) { */
+    /*     printf("%d,",get(b,i)); */
+    /* } */
 
-    destroy(b);
-    printf("freed memory address:%p", b);
+    /* destroy(b); */
+    /* printf("freed memory address:%p", b); */
     
     return 0;
 }
