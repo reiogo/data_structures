@@ -4,7 +4,6 @@
 
 
 void init(darray* a){
-    a = malloc(sizeof(darray));
     a->size = 0;
     a->capacity = 8;
     a->data = calloc(8 , sizeof(int));
@@ -41,9 +40,9 @@ int main() {
     int num = 0;
     char flag = 'c';
     int counter = 0;
-    darray b;
+    darray *b;
 
-    init(&b);
+    init(b);
 
 
     while (flag != 'd') {
@@ -52,7 +51,7 @@ int main() {
 
         
         if (scanf("%d", &num)) {
-            append(&b, num);
+            append(b, num);
 
         } else if (scanf("%c", &flag) == 'd') { 
             flag = 'd';
@@ -62,13 +61,12 @@ int main() {
 
 
     printf("Array:\n");
-    for(int i=0; i < b.size; i++) {
-        printf("%d,",b.data[i]);
+    for(int i=0; i < b->size; i++) {
+        printf("%d,",get(b,i));
     }
 
-    printf("index 2: %d", get(&b, 2));
-    destroy(&b);
-    printf("freed memory address:%p", &b);
+    destroy(b);
+    printf("freed memory address:%p", b);
     
     return 0;
 }
