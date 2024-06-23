@@ -1,6 +1,5 @@
 #include "darray.h"
 #include <stdlib.h>
-#include <string.h>
 
 
 void init(darray* a){
@@ -37,33 +36,35 @@ void destroy(darray* a){
 }
 
 int main() {
-    int num = 0;
+    int num;
     char flag = 'c';
-    darray *b;
+    darray b;
 
-    init(b);
+    init(&b);
 
+
+    printf("To add number enter a number then 'c'\n To terminate add anything other than 'c'\n");
 
     while (flag != 'd') {
-        printf("Enter a number, if done enter d\n");
-        
-        if (scanf("%d", &num)) {
-            append(b, num);
+        scanf("%d %c", &num, &flag);
 
-        } else if (scanf("%c", &flag) == 'd') { 
+        if (flag == 'c') {
+            append(&b, num);
+
+        } else { 
             flag = 'd';
 
         }
     }
 
 
-    /* printf("Array:\n"); */
-    /* for(int i=0; i < b->size; i++) { */
-    /*     printf("%d,",get(b,i)); */
-    /* } */
+    printf("Array:\n");
+    for(int i=0; i < b.size; i++) {
+        printf("%d,",get(&b,i));
+    }
 
-    /* destroy(b); */
-    /* printf("freed memory address:%p", b); */
+    destroy(&b);
+    printf("freed memory address:%p", &b);
     
     return 0;
 }
