@@ -39,14 +39,12 @@ void destroy(darray* a){
 int main() {
     int num = 0;
     char flag = 'c';
-    int counter = 0;
     darray *b;
 
     init(b);
 
 
     while (flag != 'd') {
-        counter++;
         printf("Enter a number, if done enter d\n");
 
         
