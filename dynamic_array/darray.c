@@ -4,8 +4,8 @@
 
 void init(darray* a){
     a->size = 0;
-    a->capacity = 8;
-    a->data = calloc(8 , sizeof(int));
+    a->capacity = 1;
+    a->data = calloc(1 , sizeof(int));
    
 }
 
@@ -31,7 +31,6 @@ int get(darray* a, int index){
 
 void destroy(darray* a){
     free(a->data);
-    free(a);
 
 }
 
@@ -64,7 +63,6 @@ int main() {
     }
 
     destroy(&b);
-    printf("freed memory address:%p", &b);
     
     return 0;
 }
