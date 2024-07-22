@@ -19,27 +19,42 @@ unsigned long hash(char* key){
 }
 
 void t_put(hashTable* tbl, char* key, int val){
-
+    
     linkedList tmp = tbl->array[hash(key) % tbl->capacity];
+
     while(tmp.next != NULL) {
 
         tmp = *tmp.next;
         
     }
+
     linkedList* newNode = (linkedList*)malloc(sizeof(linkedList));
-    tmp.next = newNode;
+    newNode->key = key;
     newNode->value = val;
+    newNode->next = NULL;
+    tmp.next = newNode;
+
+    /* printf("elllo: %s, %d, %p\n", tmp.next->key, tmp.next->value, tmp.next->next); */
+    /* printf("hoii: %d \n", (tbl->array[hash("one") % tbl->capacity].value)); */
+    /* printf("hello: %lu %s, %d, %p\n", hash(key) % tbl->capacity, tmp.key, tmp.value, tmp.next); */
 
         
 }
 
 int t_get(hashTable* tbl, char* key){
+    
 
     linkedList tmp = tbl->array[hash(key) % tbl->capacity];
-    while(tmp.key != key && tmp.key) {
+    while(tmp.key != key && tmp.next != NULL) {
 
         tmp = *tmp.next;
         
+    }
+    if (tmp.value == 1) {
+        return 27;
+    }
+    if (tmp.next == NULL) {
+        return 5;
     }
 
     return tmp.value;
@@ -79,7 +94,7 @@ int t_clear(hashTable* tbl){
 
     for (int i = 0; i <  tbl->capacity - 1; i++) {
         linkedList tmp = tbl->array[i];
-        tmp.next = 0;
+        tmp.next = NULL;
     }
 }
 
