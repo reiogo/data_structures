@@ -21,21 +21,31 @@ unsigned long hash(char* key){
 void t_put(hashTable* tbl, char* key, int val){
     
     linkedList tmp = tbl->array[hash(key) % tbl->capacity];
+    printf("heya: %lu\n", hash(key) % tbl->capacity);
 
     while(tmp.next != NULL) {
-
         tmp = *tmp.next;
-        
     }
 
     linkedList* newNode = (linkedList*)malloc(sizeof(linkedList));
+
     newNode->key = key;
     newNode->value = val;
     newNode->next = NULL;
+
     tmp.next = newNode;
 
-    /* printf("elllo: %s, %d, %p\n", tmp.next->key, tmp.next->value, tmp.next->next); */
-    /* printf("hoii: %d \n", (tbl->array[hash("one") % tbl->capacity].value)); */
+    if (strcmp(key, "one")) {
+
+         linkedList* hello = (linkedList*)malloc(sizeof(linkedList));
+         hello->value = 8;
+         hello->key = "omelet";
+         tbl->array[33].next = hello;
+        printf("hoii: %d, %s, %p \n", (tbl->array[33]).next->value, (tbl->array[33]).next->key,(tbl->array[33]).next);
+        
+    } 
+
+    printf("elllo: %s, %d, %p\n", tmp.next->key, tmp.next->value, tmp.next);
     /* printf("hello: %lu %s, %d, %p\n", hash(key) % tbl->capacity, tmp.key, tmp.value, tmp.next); */
 
         
