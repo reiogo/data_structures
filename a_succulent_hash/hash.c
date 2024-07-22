@@ -15,21 +15,24 @@ unsigned long hash(char* key){
 }
 
 void t_put(hashTable* tbl, char* key, int val){
-    tbl->array[hash(key)] = val;
+    linkedList tmp = tbl->array[hash(key) % tbl->capacity];
+    tmp.value = val;
 }
 
 int t_get(hashTable* tbl, char* key){
-    return tbl->array[hash(key)];
+    return tbl->array[hash(key)%tbl->capacity].value;
 }
 
 int t_pop(hashTable* tbl, char* key){
-    int popped = tbl->array[hash(key)];
-    tbl->array[hash(key)] = 0;
+    int popped = tbl->array[hash(key)%tbl->capacity].value;
+    linkedList tmp = tbl->array[hash(key) % tbl->capacity];
+    tmp.next = tmp.next->next;
     return  popped;
 }
 
 int t_init(hashTable* tbl, int capacity){
     tbl->array = malloc(sizeof(int)*capacity);
+    tbl->capacity = capacity;
     
   
     for (int i = 0; i < capacity - 1; i++) {
@@ -42,9 +45,8 @@ int t_init(hashTable* tbl, int capacity){
 
 int t_clear(hashTable* tbl){
 
-    int hashTableLength = sizeof(tbl->array)/sizeof(tbl->array[0]);
-
-    for (int i = 0; i <  hashTableLength - 1; i++) {
-        tbl->array[i] = 0;
+    for (int i = 0; i <  tbl->capacity - 1; i++) {
+        linkedList tmp = tbl->array[i];
+        tmp.next = NULL;
     }
 }

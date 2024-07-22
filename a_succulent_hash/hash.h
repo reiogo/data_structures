@@ -1,17 +1,18 @@
 #define KEY_MAX_LENGTH 64
 
 typedef struct linkedList {
-    void* key;
-    void* value;
+    char* key;
+    int value;
     struct linkedList* next;
 
 }linkedList;
 
 typedef struct hashTable{
     linkedList* array;
+    int capacity;
 
 
-%}hashTable;
+}hashTable;
 
 
 unsigned long hash(char* key);
