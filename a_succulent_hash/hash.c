@@ -60,12 +60,12 @@ int t_pop(hashTable* tbl, char* key){
         ptr = ptr->next;
     }
 
-
-    int popped = ptr->next->value;
-
     if (ptr->next == NULL) {
         return 0;
     }
+
+    int popped = ptr->next->value;
+
 
     ptr->next = ptr->next->next;
 
@@ -101,6 +101,7 @@ void main(){
 	hashTable tbl;
 	t_init(&tbl, 100);
 	t_put(&tbl, "one", 1);
+	t_put(&tbl, "ones", 25);
 	t_put(&tbl, "two", 2);
 	t_put(&tbl, "three", 3);
 	
@@ -112,7 +113,7 @@ void main(){
 
 	printf("one %d\n", t_get(&tbl, "one"));
 	printf("one %d\n", t_get(&tbl, "one"));
-	printf("one %d\n", t_get(&tbl, "one"));
+	printf("ones %d\n", t_get(&tbl, "ones"));
 
 	printf("two %d\n", t_get(&tbl, "two"));
 	printf("three %d\n", t_get(&tbl, "three"));
