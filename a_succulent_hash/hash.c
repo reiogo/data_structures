@@ -20,11 +20,11 @@ unsigned long hash(char* key){
 
 void t_put(hashTable* tbl, char* key, int val){
     
-    linkedList tmp = tbl->array[hash(key) % tbl->capacity];
-    printf("heya: %lu\n", hash(key) % tbl->capacity);
+    linkedList* ptr;
+    ptr = &(tbl->array[hash(key) % tbl->capacity]);
 
-    while(tmp.next != NULL) {
-        tmp = *tmp.next;
+    while(ptr->next != NULL) {
+        ptr = ptr->next;
     }
 
     linkedList* newNode = (linkedList*)malloc(sizeof(linkedList));
@@ -33,54 +33,42 @@ void t_put(hashTable* tbl, char* key, int val){
     newNode->value = val;
     newNode->next = NULL;
 
-    tmp.next = newNode;
-
-    if (strcmp(key, "one")) {
-
-         linkedList* hello = (linkedList*)malloc(sizeof(linkedList));
-         hello->value = 8;
-         hello->key = "omelet";
-         tbl->array[33].next = hello;
-        printf("hoii: %d, %s, %p \n", (tbl->array[33]).next->value, (tbl->array[33]).next->key,(tbl->array[33]).next);
-        
-    } 
-
-    printf("elllo: %s, %d, %p\n", tmp.next->key, tmp.next->value, tmp.next);
-    /* printf("hello: %lu %s, %d, %p\n", hash(key) % tbl->capacity, tmp.key, tmp.value, tmp.next); */
+    ptr->next = newNode;
 
         
 }
 
 int t_get(hashTable* tbl, char* key){
     
+    linkedList* ptr;
+    ptr = &(tbl->array[hash(key) % tbl->capacity]);
 
-    linkedList tmp = tbl->array[hash(key) % tbl->capacity];
-    while(tmp.key != key && tmp.next != NULL) {
-
-        tmp = *tmp.next;
-        
-    }
-    if (tmp.value == 1) {
-        return 27;
-    }
-    if (tmp.next == NULL) {
-        return 5;
+    while(ptr->next != NULL && ptr->key != key) {
+        ptr = ptr->next;
     }
 
-    return tmp.value;
+
+    return ptr->value;
 }
 
 int t_pop(hashTable* tbl, char* key){
 
-    linkedList tmp = tbl->array[hash(key) % tbl->capacity];
-    while(tmp.key != key) {
+    linkedList* ptr;
+    ptr = &(tbl->array[hash(key) % tbl->capacity]);
 
-        tmp = *tmp.next;
-        
+    while(ptr->next != NULL && ptr->next->key != key) {
+        ptr = ptr->next;
     }
 
-    int popped = tmp.value;
-    tmp.next = tmp.next->next;
+
+    int popped = ptr->next->value;
+
+    if (ptr->next == NULL) {
+        return 0;
+    }
+
+    ptr->next = ptr->next->next;
+
     return  popped;
 }
 
@@ -103,9 +91,10 @@ int t_init(hashTable* tbl, int capacity){
 int t_clear(hashTable* tbl){
 
     for (int i = 0; i <  tbl->capacity - 1; i++) {
-        linkedList tmp = tbl->array[i];
-        tmp.next = NULL;
+        (tbl->array[i]).next = NULL;
     }
+    return 0;
+
 }
 
 void main(){
