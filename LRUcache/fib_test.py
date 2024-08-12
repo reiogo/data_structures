@@ -18,12 +18,9 @@ def timer(func):
 def cache(func):
     lru = LRUcache.Lru(3)
     def wrapper_cache(value):
-        if lru.get(value) != None:
-            return lru.get(value)
-        else:
-            res = func(value)
-            lru.put(value, res)
-            return res
+        if lru.get(value) == None:
+            lru.put(value, func(value))
+        return lru.get(value)
     return wrapper_cache
 
 
@@ -47,4 +44,4 @@ def test_fib (num):
     print("answer: ", result);
     return result
 
-test_fib(438)
+test_fib(38)
