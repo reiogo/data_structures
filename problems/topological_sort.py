@@ -12,7 +12,7 @@ def read_input():
 
 
 def topsort(pairs):
-    if not pairs:
+    if pairs == []:
         return 'empty list'
 # Create adjacency list.
     adjList = {}
@@ -28,30 +28,31 @@ def topsort(pairs):
     output = []
     visited, cycle = set(), set()
     def dfs(node):
-        if node not in visited:
-            if node not in adjList:
-                return True
-            if node in cycle:
-                return False
+        if node in cycle:
+            return False
+        if node in visited:
+            return True
+        if node in adjList:
             cycle.add(node)
-            for depend in range(adjList[node]):
-                if not dfs(depend):
+            for depend in adjList[node]:
+                if dfs(depend) == False:
                     return False
             cycle.remove(node)
-            visited.add(node)
-            output.append(node)
-            return True
+        visited.add(node)
+        output.append(node)
+        return True
         
-    for node in adjList:
-        if not dfs(node):
-            return 'failure'
-        else:
-            return output
+    for main in adjList:
+        if dfs(main) == False:
+            return 'There was a cycle or otherwise impossible'
+    return output[::-1]
 
 
 def main():
-    input = read_input()
-    print(topsort(input))
+    # input = read_input()
+    # print(topsort(input))
+    pairs = [(4,3),(5,3),(6,3),(5,7),(6,7)]
+    print(topsort(pairs))
 
 
 if __name__ == "__main__":
